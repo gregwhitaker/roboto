@@ -1,0 +1,16 @@
+plugins {
+    id "com.gradle.build-scan" version "1.13.1"
+}
+
+buildScan {
+    termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+    termsOfServiceAgree = 'yes'
+    publishAlways()
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+}

@@ -1,0 +1,12 @@
+plugins {
+    id 'java'
+    id 'io.spring.dependency-management' version '1.0.5.RELEASE'
+}
+
+sourceCompatibility = 1.8
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-web:2.0.2.RELEASE'
+
+    testCompile 'org.springframework.boot:spring-boot-starter-test:2.0.2.RELEASE'
+}
