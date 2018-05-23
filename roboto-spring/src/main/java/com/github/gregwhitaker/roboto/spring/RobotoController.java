@@ -63,7 +63,7 @@ public class RobotoController {
 
     /**
      * Handles requests for sitemap.txt file.
-     * 
+     *
      * @return
      */
     @RequestMapping(value = { "/sitemap.txt" })

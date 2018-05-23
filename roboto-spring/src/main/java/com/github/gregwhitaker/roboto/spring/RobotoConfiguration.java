@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Configuration;
  * Configures Roboto to serve robots.txt and sitemap.xml files.
  */
 @Configuration
-@ComponentScan(basePackages = { "com.github.gregwhitaker.roboto.spring"})
+@ComponentScan(basePackages = { "com.github.gregwhitaker.roboto.spring" })
 public class RobotoConfiguration {
 
 }
