@@ -19,8 +19,15 @@ package com.github.gregwhitaker.roboto.spring.annotation;
 import com.github.gregwhitaker.roboto.spring.RobotoConfiguration;
 import org.springframework.context.annotation.Import;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE})
 @RobotoAnnotation
-@Import(RobotoConfiguration.class)
+@Import({ RobotoConfiguration.class })
 public @interface EnableRobots {
 
 }
