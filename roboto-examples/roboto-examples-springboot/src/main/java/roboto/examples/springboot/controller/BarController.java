@@ -16,10 +16,8 @@
 
 package roboto.examples.springboot.controller;
 
-import com.github.gregwhitaker.roboto.spring.RobotoController;
 import com.github.gregwhitaker.roboto.spring.annotation.AllowRobots;
 import com.github.gregwhitaker.roboto.spring.annotation.DenyRobots;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
