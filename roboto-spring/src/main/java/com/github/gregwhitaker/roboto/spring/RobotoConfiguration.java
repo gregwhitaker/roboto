@@ -16,8 +16,6 @@
 
 package com.github.gregwhitaker.roboto.spring;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
@@ -27,9 +25,5 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan(basePackages = { "com.github.gregwhitaker.roboto.spring"})
 public class RobotoConfiguration {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RobotoConfiguration.class);
 
-    public RobotoConfiguration() {
-        LOGGER.info("Domo Arigato - Mr. Roboto is handling your SEO!");
-    }
 }

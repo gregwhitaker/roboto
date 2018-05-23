@@ -18,6 +18,7 @@ package com.github.gregwhitaker.roboto.spring;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -30,17 +31,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RobotoController {
     private static final Logger LOGGER = LoggerFactory.getLogger(RobotoController.class);
 
+    private final RobotsService robotsService;
+    private final SitemapService sitemapService;
+
+    @Autowired
+    public RobotoController(RobotsService robotsService, SitemapService sitemapService) {
+        this.robotsService = robotsService;
+        this.sitemapService = sitemapService;
+    }
+
+    /**
+     * Handles requests for robots.txt file.
+     *
+     * @return
+     */
     @RequestMapping(value = { "/robots", "/robots.txt", "/robot", "/robot.txt" })
     public ResponseEntity robots() {
         return null;
     }
 
+    /**
+     * Handles requests for sitemap.xml file.
+     *
+     * @return
+     */
     @RequestMapping(value = { "/sitemap.xml" },
                     produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity sitemapXml() {
         return null;
     }
 
+    /**
+     * Handles requests for sitemap.txt file.
+     * 
+     * @return
+     */
     @RequestMapping(value = { "/sitemap.txt" })
     public ResponseEntity sitemapText() {
         return null;
