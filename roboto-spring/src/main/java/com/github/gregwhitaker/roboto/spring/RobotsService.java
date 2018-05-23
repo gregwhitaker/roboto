@@ -24,4 +24,7 @@ import org.springframework.stereotype.Service;
 public class RobotsService {
     private static final Logger LOGGER = LoggerFactory.getLogger(RobotsService.class);
 
+    private ResourceMapper resourceScanner;
+
+
 }

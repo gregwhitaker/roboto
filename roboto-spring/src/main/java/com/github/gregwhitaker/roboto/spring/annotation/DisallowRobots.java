@@ -21,18 +21,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- * Annotation that can be applied to methods and classes signifying that the annotated resources
- * should be included in SEO.
- */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.METHOD, ElementType.TYPE })
 @RobotoAnnotation
-public @interface AllowRobots {
+public @interface DisallowRobots {
 
-    /**
-     * The priority value of the url for the sitemap.xml file.
-     * @return
-     */
-    double priority() default 1.00;
+    String[] userAgents() default {};
 }

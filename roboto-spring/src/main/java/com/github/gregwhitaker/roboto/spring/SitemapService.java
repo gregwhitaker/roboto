@@ -24,4 +24,6 @@ import org.springframework.stereotype.Service;
 public class SitemapService {
     private static final Logger LOGGER = LoggerFactory.getLogger(SitemapService.class);
 
+    private ResourceMapper resourceScanner;
+
 }

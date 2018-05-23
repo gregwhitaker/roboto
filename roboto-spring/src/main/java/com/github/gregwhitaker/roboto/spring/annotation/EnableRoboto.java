@@ -16,14 +16,19 @@
 
 package com.github.gregwhitaker.roboto.spring.annotation;
 
+import com.github.gregwhitaker.roboto.spring.RobotoConfiguration;
+import org.springframework.context.annotation.Import;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.METHOD, ElementType.TYPE })
+@Target({ElementType.TYPE})
 @RobotoAnnotation
-public @interface DenyRobots {
+@Import({ RobotoConfiguration.class })
+public @interface EnableRoboto {
 
+    boolean disallowAll() default false;
 }
