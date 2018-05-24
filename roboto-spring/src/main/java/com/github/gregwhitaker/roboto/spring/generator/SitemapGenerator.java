@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
-package com.github.gregwhitaker.roboto.spring;
+package com.github.gregwhitaker.roboto.spring.generator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
-@Service
-public class RobotsService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RobotsService.class);
+public class SitemapGenerator {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SitemapGenerator.class);
 
-    private ResourceMapper resourceScanner;
+    public static String getText() {
+        return null;
+    }
 
-
+    public static String getXml() {
+        return null;
+    }
 }

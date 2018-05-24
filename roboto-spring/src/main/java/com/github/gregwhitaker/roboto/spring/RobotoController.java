@@ -16,9 +16,8 @@
 
 package com.github.gregwhitaker.roboto.spring;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.github.gregwhitaker.roboto.spring.generator.RobotsGenerator;
+import com.github.gregwhitaker.roboto.spring.generator.SitemapGenerator;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,47 +26,47 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * Controller responsible for creating and hosting the robots.txt and sitemap files.
  */
-@Controller("RobotoController")
+@Controller
 public class RobotoController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RobotoController.class);
+    private final ResourceMapper mapper;
 
-    private final RobotsService robotsService;
-    private final SitemapService sitemapService;
-
-    @Autowired
-    public RobotoController(RobotsService robotsService, SitemapService sitemapService) {
-        this.robotsService = robotsService;
-        this.sitemapService = sitemapService;
+    public RobotoController(ResourceMapper mapper) {
+        this.mapper = mapper;
     }
 
     /**
      * Handles requests for robots.txt file.
      *
-     * @return
+     * @return a {@link ResponseEntity} containing the robots.txt file.
      */
-    @RequestMapping(value = { "/robots", "/robots.txt", "/robot", "/robot.txt" })
-    public ResponseEntity robots() {
-        return null;
+    @RequestMapping(value = { "/robots", "/robots.txt", "/robot", "/robot.txt" },
+                    produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> robots() {
+        return ResponseEntity.ok()
+                .body(RobotsGenerator.get());
     }
 
     /**
      * Handles requests for sitemap.xml file.
      *
-     * @return
+     * @return a {@link ResponseEntity} containing the sitemap.xml file.
      */
     @RequestMapping(value = { "/sitemap.xml" },
                     produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity sitemapXml() {
-        return null;
+    public ResponseEntity<String> sitemapXml() {
+        return ResponseEntity.ok()
+                .body(SitemapGenerator.getXml());
     }
 
     /**
      * Handles requests for sitemap.txt file.
      *
-     * @return
+     * @return a {@link ResponseEntity} containing the sitemap.txt file.
      */
-    @RequestMapping(value = { "/sitemap.txt" })
-    public ResponseEntity sitemapText() {
-        return null;
+    @RequestMapping(value = { "/sitemap.txt" },
+                    produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> sitemapText() {
+        return ResponseEntity.ok()
+                .body(SitemapGenerator.getText());
     }
 }
