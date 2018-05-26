@@ -31,7 +31,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -40,7 +39,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- *
+ * Maps resource endpoint methods to allowed or disallowed from robots collections.
  */
 public class RobotoMapper {
     private static final Logger LOGGER = LoggerFactory.getLogger(RobotoMapper.class);
@@ -53,6 +52,11 @@ public class RobotoMapper {
         doMapping(beanFactory);
     }
 
+    /**
+     * Scans the classpath for resource methods and maps allowed and disallowed endpoints.
+     *
+     * @param beanFactory
+     */
     private void doMapping(BeanFactory beanFactory) {
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
         scanner.addIncludeFilter(new AnnotationTypeFilter(Controller.class));
@@ -79,6 +83,13 @@ public class RobotoMapper {
         }
     }
 
+    /**
+     * Checks to see if the supplied method is a method that should be mapped.
+     *
+     * @param clazz
+     * @param method
+     * @return
+     */
     private boolean isMappingMethod(Class clazz, Method method) {
         if (clazz.isAnnotationPresent(Controller.class) || clazz.isAnnotationPresent(RestController.class)) {
             if (method.isAnnotationPresent(GetMapping.class)) {
@@ -97,6 +108,13 @@ public class RobotoMapper {
         return false;
     }
 
+    /**
+     * Checks to see if the supplied method should be disallowed.
+     *
+     * @param clazz
+     * @param method
+     * @return
+     */
     private boolean isMappingMethodDisallowed(Class clazz, Method method) {
         if (clazz.isAnnotationPresent(DisallowRobots.class) || method.isAnnotationPresent(DisallowRobots.class)) {
             return true;
@@ -105,6 +123,12 @@ public class RobotoMapper {
         return false;
     }
 
+    /**
+     * Adds the supplied method to the allowed list.
+     *
+     * @param clazz
+     * @param method
+     */
     private void allowMethod(Class clazz, Method method) {
         if (method.isAnnotationPresent(GetMapping.class)) {
             List<String> paths = Arrays.asList(method.getAnnotation(GetMapping.class).value());
@@ -117,6 +141,12 @@ public class RobotoMapper {
         }
     }
 
+    /**
+     * Adds the supplied method to the disallow list.
+     *
+     * @param clazz
+     * @param method
+     */
     private void disallowMethod(Class clazz, Method method) {
         if (clazz.isAnnotationPresent(DisallowRobots.class)) {
             Set<String> paths = new HashSet<>();
@@ -161,10 +191,20 @@ public class RobotoMapper {
         }
     }
 
+    /**
+     * Gets the list of all allowed paths.
+     *
+     * @return
+     */
     public Set<String> getAllowed() {
         return allowed;
     }
 
+    /**
+     * Gets the list of all disallowed paths by user agent.
+     *
+     * @return
+     */
     public Map<String, Set<String>> getDisallowed() {
         return disallowed;
     }
