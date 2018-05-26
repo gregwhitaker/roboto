@@ -16,30 +16,23 @@
 
 package com.github.gregwhitaker.roboto.spring;
 
-import com.github.gregwhitaker.roboto.spring.generator.RobotsGenerator;
-import com.github.gregwhitaker.roboto.spring.generator.SitemapGenerator;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ResourceLoader;
 
-/**
- * Configures Roboto to serve robots.txt and sitemap.xml files.
- */
 @Configuration
 public class RobotoConfiguration {
 
     @Bean
     @Autowired
-    public ResourceMapper resourceMapper(ResourceLoader resourceLoader, BeanFactory beanFactory) {
-        boolean t = true;
-        return null;
+    public RobotoMapper robotoMapper(BeanFactory beanFactory) {
+        return new RobotoMapper(beanFactory);
     }
 
     @Bean
     @Autowired
-    public RobotoController robotoController(ResourceMapper mapper) {
+    public RobotoController robotoController(RobotoMapper mapper) {
         return new RobotoController(mapper);
     }
 }

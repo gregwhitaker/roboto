@@ -24,11 +24,18 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ *
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})
 @RobotoAnnotation
 @Import({ RobotoConfiguration.class })
 public @interface EnableRoboto {
 
+    /**
+     *
+     * @return
+     */
     boolean disallowAll() default false;
 }

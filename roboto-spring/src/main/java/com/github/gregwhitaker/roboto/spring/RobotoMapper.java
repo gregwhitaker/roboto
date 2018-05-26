@@ -14,19 +14,35 @@
  * limitations under the License.
  */
 
-package com.github.gregwhitaker.roboto.spring.generator;
+package com.github.gregwhitaker.roboto.spring;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.BeanFactory;
 
-public class SitemapGenerator {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SitemapGenerator.class);
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
-    public static String getText() {
-        return null;
+/**
+ *
+ */
+public class RobotoMapper {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RobotoMapper.class);
+
+    private final Set<String> allowed = new HashSet<>();
+    private final Map<String, Set<String>> disallowed = new HashMap<>();
+
+    public RobotoMapper(BeanFactory beanFactory) {
+
     }
 
-    public static String getXml() {
-        return null;
+    public Set<String> getAllowed() {
+        return allowed;
+    }
+
+    public Map<String, Set<String>> getDisallowed() {
+        return disallowed;
     }
 }

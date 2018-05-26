@@ -6,6 +6,12 @@ plugins {
 
 sourceCompatibility = 1.8
 
+dependencyManagement {
+    imports {
+        mavenBom 'io.spring.platform:platform-bom:Cairo-SR1'
+    }
+}
+
 dependencies {
     compile project(':roboto-spring')
 

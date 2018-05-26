@@ -16,8 +16,6 @@
 
 package com.github.gregwhitaker.roboto.spring;
 
-import com.github.gregwhitaker.roboto.spring.generator.RobotsGenerator;
-import com.github.gregwhitaker.roboto.spring.generator.SitemapGenerator;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -28,9 +26,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class RobotoController {
-    private final ResourceMapper mapper;
 
-    public RobotoController(ResourceMapper mapper) {
+    private final RobotoMapper mapper;
+
+    public RobotoController(RobotoMapper mapper) {
         this.mapper = mapper;
     }
 
@@ -39,11 +38,10 @@ public class RobotoController {
      *
      * @return a {@link ResponseEntity} containing the robots.txt file.
      */
-    @RequestMapping(value = { "/robots", "/robots.txt", "/robot", "/robot.txt" },
+    @RequestMapping(value = { "/robots.txt" },
                     produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> robots() {
-        return ResponseEntity.ok()
-                .body(RobotsGenerator.get());
+        return ResponseEntity.ok(RobotoResponse.robots(mapper));
     }
 
     /**
@@ -53,20 +51,7 @@ public class RobotoController {
      */
     @RequestMapping(value = { "/sitemap.xml" },
                     produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<String> sitemapXml() {
-        return ResponseEntity.ok()
-                .body(SitemapGenerator.getXml());
-    }
-
-    /**
-     * Handles requests for sitemap.txt file.
-     *
-     * @return a {@link ResponseEntity} containing the sitemap.txt file.
-     */
-    @RequestMapping(value = { "/sitemap.txt" },
-                    produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<String> sitemapText() {
-        return ResponseEntity.ok()
-                .body(SitemapGenerator.getText());
+    public ResponseEntity<String> sitemap() {
+        return ResponseEntity.ok(RobotoResponse.sitemap(mapper));
     }
 }

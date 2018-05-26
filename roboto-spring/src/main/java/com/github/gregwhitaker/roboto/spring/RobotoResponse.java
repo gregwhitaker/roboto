@@ -14,15 +14,25 @@
  * limitations under the License.
  */
 
-package com.github.gregwhitaker.roboto.spring.generator;
+package com.github.gregwhitaker.roboto.spring;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.HashMap;
+import java.util.Map;
 
-public class RobotsGenerator {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RobotsGenerator.class);
+public class RobotoResponse {
 
-    public static String get() {
-        return null;
+    private static Map<RobotoMapper, String> ROBOTS = new HashMap<>();
+    private static Map<RobotoMapper, String> SITEMAP = new HashMap<>();
+
+    public static String robots(RobotoMapper mapper) {
+        return ROBOTS.computeIfAbsent(mapper, robots -> {
+            return "";
+        });
+    }
+
+    public static String sitemap(RobotoMapper mapper) {
+        return SITEMAP.computeIfAbsent(mapper, sitemap -> {
+            return "";
+        });
     }
 }
