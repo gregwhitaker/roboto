@@ -1,5 +1,5 @@
 rootProject.name = 'roboto'
-include 'roboto-spring'
+include 'roboto-springboot'
 include 'roboto-examples:roboto-examples-spring'
 include 'roboto-examples:roboto-examples-springboot'
 

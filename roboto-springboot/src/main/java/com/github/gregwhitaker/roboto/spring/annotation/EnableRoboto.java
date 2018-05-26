@@ -33,9 +33,4 @@ import java.lang.annotation.Target;
 @Import({ RobotoConfiguration.class })
 public @interface EnableRoboto {
 
-    /**
-     *
-     * @return
-     */
-    boolean disallowAll() default false;
 }

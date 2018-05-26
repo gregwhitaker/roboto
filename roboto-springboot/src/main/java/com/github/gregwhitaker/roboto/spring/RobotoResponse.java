@@ -16,33 +16,25 @@
 
 package com.github.gregwhitaker.roboto.spring;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.BeanFactory;
-
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-/**
- *
- */
-public class RobotoMapper {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RobotoMapper.class);
+public class RobotoResponse {
 
-    private final Set<String> allowed = new HashSet<>();
-    private final Map<String, Set<String>> disallowed = new HashMap<>();
+    private static Map<RobotoMapper, String> ROBOTS = new HashMap<>();
+    private static Map<RobotoMapper, String> SITEMAP = new HashMap<>();
 
-    public RobotoMapper(BeanFactory beanFactory) {
-
+    public static String robots(RobotoMapper mapper) {
+        return ROBOTS.computeIfAbsent(mapper, robots -> {
+            Map<String, Set<String>> disallowed = mapper.getDisallowed();
+            return "";
+        });
     }
 
-    public Set<String> getAllowed() {
-        return allowed;
-    }
-
-    public Map<String, Set<String>> getDisallowed() {
-        return disallowed;
+    public static String sitemap(RobotoMapper mapper) {
+        return SITEMAP.computeIfAbsent(mapper, sitemap -> {
+            return "";
+        });
     }
 }

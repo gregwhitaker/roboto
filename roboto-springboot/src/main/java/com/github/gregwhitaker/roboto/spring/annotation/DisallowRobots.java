@@ -14,25 +14,17 @@
  * limitations under the License.
  */
 
-package com.github.gregwhitaker.roboto.spring;
+package com.github.gregwhitaker.roboto.spring.annotation;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-public class RobotoResponse {
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ ElementType.METHOD, ElementType.TYPE })
+@RobotoAnnotation
+public @interface DisallowRobots {
 
-    private static Map<RobotoMapper, String> ROBOTS = new HashMap<>();
-    private static Map<RobotoMapper, String> SITEMAP = new HashMap<>();
-
-    public static String robots(RobotoMapper mapper) {
-        return ROBOTS.computeIfAbsent(mapper, robots -> {
-            return "";
-        });
-    }
-
-    public static String sitemap(RobotoMapper mapper) {
-        return SITEMAP.computeIfAbsent(mapper, sitemap -> {
-            return "";
-        });
-    }
+    String[] userAgents() default { "*" };
 }
