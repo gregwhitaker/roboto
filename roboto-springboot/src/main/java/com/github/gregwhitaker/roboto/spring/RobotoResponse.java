@@ -26,6 +26,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Builds responses for robots.txt and sitemap.xml files based on the resources found by {@link RobotoMapper}.
+ */
 public class RobotoResponse {
     private static final Logger LOGGER = LoggerFactory.getLogger(RobotoResponse.class);
 
@@ -38,10 +41,10 @@ public class RobotoResponse {
 
             StringBuilder builder = new StringBuilder();
             for(Map.Entry<String, Set<String>> entry : disallowed.entrySet()) {
-                builder.append("User-agent: " + entry.getKey()).append(System.lineSeparator());
+                builder.append("User-agent: ").append(entry.getKey()).append(System.lineSeparator());
 
                 entry.getValue().forEach(path -> {
-                    builder.append("Disallow: " + path).append(System.lineSeparator());
+                    builder.append("Disallow: ").append(path).append(System.lineSeparator());
                 });
 
                 builder.append(System.lineSeparator());
