@@ -53,7 +53,7 @@ public class RobotoController {
      */
     @RequestMapping(value = { "/sitemap.xml" },
                     produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<String> sitemap() {
-        return ResponseEntity.ok(RobotoResponse.sitemap(mapper));
+    public ResponseEntity<String> sitemap(HttpServletRequest request) {
+        return ResponseEntity.ok(RobotoResponse.sitemap(request, mapper));
     }
 }

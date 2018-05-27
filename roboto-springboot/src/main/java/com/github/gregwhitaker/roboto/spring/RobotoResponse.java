@@ -70,7 +70,7 @@ public class RobotoResponse {
         });
     }
 
-    public static String sitemap(RobotoMapper mapper) {
+    public static String sitemap(HttpServletRequest request, RobotoMapper mapper) {
         return SITEMAP.computeIfAbsent(mapper, sitemap -> {
             Set<String> allowed = mapper.getAllowed();
             return "";
