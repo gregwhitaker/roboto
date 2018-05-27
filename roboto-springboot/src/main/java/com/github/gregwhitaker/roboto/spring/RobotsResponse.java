@@ -27,16 +27,21 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Builds responses for robots.txt and sitemap.xml files based on the resources found by {@link RobotoMapper}.
+ * Builds a robots.txt response based on the supplied {@link RobotoMapper}.
  */
-public class RobotoResponse {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RobotoResponse.class);
+public class RobotsResponse {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RobotsResponse.class);
+    private static final Map<RobotoMapper, String> CACHE = new HashMap<>();
 
-    private static Map<RobotoMapper, String> ROBOTS = new HashMap<>();
-    private static Map<RobotoMapper, String> SITEMAP = new HashMap<>();
-
-    public static String robots(HttpServletRequest request, RobotoMapper mapper) {
-        return ROBOTS.computeIfAbsent(mapper, robots -> {
+    /**
+     * Creates a robots.txt file.
+     *
+     * @param request http request
+     * @param mapper roboto mapper
+     * @return robots.txt file contents
+     */
+    public static String create(HttpServletRequest request, RobotoMapper mapper) {
+        return CACHE.computeIfAbsent(mapper, robots -> {
             Map<String, Set<String>> disallowed = mapper.getDisallowed();
 
             StringBuilder builder = new StringBuilder();
@@ -67,13 +72,6 @@ public class RobotoResponse {
             }
 
             return builder.toString();
-        });
-    }
-
-    public static String sitemap(HttpServletRequest request, RobotoMapper mapper) {
-        return SITEMAP.computeIfAbsent(mapper, sitemap -> {
-            Set<String> allowed = mapper.getAllowed();
-            return "";
         });
     }
 }

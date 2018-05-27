@@ -20,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -43,7 +44,7 @@ public class RobotoController {
     @RequestMapping(value = { "/robots.txt" },
                     produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> robots(HttpServletRequest request) {
-        return ResponseEntity.ok(RobotoResponse.robots(request, mapper));
+        return ResponseEntity.ok(RobotsResponse.create(request, mapper));
     }
 
     /**
@@ -53,7 +54,8 @@ public class RobotoController {
      */
     @RequestMapping(value = { "/sitemap.xml" },
                     produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<String> sitemap(HttpServletRequest request) {
-        return ResponseEntity.ok(RobotoResponse.sitemap(request, mapper));
+    @ResponseBody
+    public SitemapResponse.XmlUrlSet sitemap(HttpServletRequest request) {
+        return SitemapResponse.create(request, mapper);
     }
 }
