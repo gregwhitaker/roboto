@@ -16,24 +16,60 @@
 
 package com.github.gregwhitaker.roboto.spring;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 public class RobotoResponse {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RobotoResponse.class);
 
     private static Map<RobotoMapper, String> ROBOTS = new HashMap<>();
     private static Map<RobotoMapper, String> SITEMAP = new HashMap<>();
 
-    public static String robots(RobotoMapper mapper) {
+    public static String robots(HttpServletRequest request, RobotoMapper mapper) {
         return ROBOTS.computeIfAbsent(mapper, robots -> {
             Map<String, Set<String>> disallowed = mapper.getDisallowed();
-            return "";
+
+            StringBuilder builder = new StringBuilder();
+            for(Map.Entry<String, Set<String>> entry : disallowed.entrySet()) {
+                builder.append("User-agent: " + entry.getKey()).append(System.lineSeparator());
+
+                entry.getValue().forEach(path -> {
+                    builder.append("Disallow: " + path).append(System.lineSeparator());
+                });
+
+                builder.append(System.lineSeparator());
+            }
+
+            try {
+                URI uri = new URI(request.getRequestURL().toString());
+
+                builder.append("Sitemap: ")
+                        .append(uri.getScheme())
+                        .append("://")
+                        .append(uri.getHost())
+                        .append(":")
+                        .append(uri.getPort())
+                        .append("/sitemap.xml");
+
+                builder.append(System.lineSeparator());
+            } catch (URISyntaxException e) {
+                LOGGER.error("Failed to create sitemap.xml declaration for /robots.txt", e);
+            }
+
+            return builder.toString();
         });
     }
 
     public static String sitemap(RobotoMapper mapper) {
         return SITEMAP.computeIfAbsent(mapper, sitemap -> {
+            Set<String> allowed = mapper.getAllowed();
             return "";
         });
     }

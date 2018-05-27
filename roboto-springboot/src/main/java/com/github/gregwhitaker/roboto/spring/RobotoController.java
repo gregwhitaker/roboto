@@ -21,6 +21,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Controller responsible for creating and hosting the robots.txt and sitemap files.
  */
@@ -40,8 +42,8 @@ public class RobotoController {
      */
     @RequestMapping(value = { "/robots.txt" },
                     produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<String> robots() {
-        return ResponseEntity.ok(RobotoResponse.robots(mapper));
+    public ResponseEntity<String> robots(HttpServletRequest request) {
+        return ResponseEntity.ok(RobotoResponse.robots(request, mapper));
     }
 
     /**

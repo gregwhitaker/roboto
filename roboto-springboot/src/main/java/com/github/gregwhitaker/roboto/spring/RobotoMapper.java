@@ -43,13 +43,30 @@ import java.util.Set;
  */
 public class RobotoMapper {
     private static final Logger LOGGER = LoggerFactory.getLogger(RobotoMapper.class);
-    private static final String DEFAULT_USER_AGENT = "*";
 
     private final Set<String> allowed = new HashSet<>();
     private final Map<String, Set<String>> disallowed = new HashMap<>();
 
     public RobotoMapper(BeanFactory beanFactory) {
         doMapping(beanFactory);
+    }
+
+    /**
+     * Gets the list of all allowed paths.
+     *
+     * @return
+     */
+    public Set<String> getAllowed() {
+        return allowed;
+    }
+
+    /**
+     * Gets the list of all disallowed paths by user agent.
+     *
+     * @return
+     */
+    public Map<String, Set<String>> getDisallowed() {
+        return disallowed;
     }
 
     /**
@@ -169,6 +186,7 @@ public class RobotoMapper {
             }
         }
 
+        // Method level configurations override class level configurations
         if (method.isAnnotationPresent(DisallowRobots.class)) {
             Set<String> paths = new HashSet<>();
 
@@ -189,23 +207,5 @@ public class RobotoMapper {
                 }
             }
         }
-    }
-
-    /**
-     * Gets the list of all allowed paths.
-     *
-     * @return
-     */
-    public Set<String> getAllowed() {
-        return allowed;
-    }
-
-    /**
-     * Gets the list of all disallowed paths by user agent.
-     *
-     * @return
-     */
-    public Map<String, Set<String>> getDisallowed() {
-        return disallowed;
     }
 }
