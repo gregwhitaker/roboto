@@ -1,6 +1,8 @@
 # roboto
 [![Build Status](https://travis-ci.org/gregwhitaker/roboto.svg?branch=master)](https://travis-ci.org/gregwhitaker/roboto)
 
+Module for Spring Boot applications that automatically generates robots.txt and sitemap.xml files.
+
 ## Examples
 Please see the included [example projects](roboto-examples) for demonstrations on how to configure and use Roboto.
 
