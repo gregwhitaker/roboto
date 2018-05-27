@@ -4,6 +4,18 @@
 Module for Spring Boot applications that automatically generates [robots.txt](http://www.robotstxt.org/) and [sitemap.xml](https://www.sitemaps.org/protocol.html) files based on standard 
 controller annotations.
 
+## How does it work?
+1. Simply annotate your main Spring application class with the `@EnableRoboto` annotation like so:
+
+        @SpringBootApplication
+        @EnableRoboto
+        public class Application {
+        
+            public static void main(String... args) {
+                SpringApplication.run(Application.class, args);
+            }
+        }
+
 ## Getting Roboto
 Roboto libraries are available via JCenter.
 
