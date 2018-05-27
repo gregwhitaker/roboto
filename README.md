@@ -1,4 +1,5 @@
 # roboto
+[![Build Status](https://travis-ci.org/gregwhitaker/roboto.svg?branch=master)](https://travis-ci.org/gregwhitaker/roboto)
 
 ## License
 Copyright 2018 Greg Whitaker
