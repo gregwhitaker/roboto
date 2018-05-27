@@ -56,6 +56,9 @@ controller annotations.
             }
         }
 
+3. That's all there is to it. Your robots.txt and sitemap.xml files are now automatically accessible at `/robots.txt` 
+and `/sitemap.xml`.
+
 ## Getting Roboto
 Roboto libraries are available via JCenter.
 
