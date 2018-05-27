@@ -44,7 +44,12 @@ public class RobotoController {
     @RequestMapping(value = { "/robots.txt" },
                     produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> robots(HttpServletRequest request) {
-        return ResponseEntity.ok(RobotsResponse.create(request, mapper));
+        try {
+            return ResponseEntity.ok(RobotsResponse.create(request, mapper));
+        } catch (Exception e) {
+            // In the event of an exception just don't return a robots.txt file
+            return ResponseEntity.notFound().build();
+        }
     }
 
     /**
@@ -58,7 +63,7 @@ public class RobotoController {
         try {
             return ResponseEntity.ok(SitemapResponse.create(request, mapper));
         } catch (Exception e) {
-            // In the event of an exception just don't return a sitemap
+            // In the event of an exception just don't return a sitemap.xml file
             return ResponseEntity.notFound().build();
         }
     }
