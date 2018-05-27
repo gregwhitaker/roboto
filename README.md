@@ -18,6 +18,8 @@ controller annotations.
 
 2. Next, use the `@DisallowRobots` annotation to mark methods and/or controllers that you would like to be excluded from search engine indexing.
 
+    For Example:
+    
         @Controller
         @DisallowRobots
         public class FooController {
