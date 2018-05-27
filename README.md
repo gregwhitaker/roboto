@@ -16,6 +16,44 @@ controller annotations.
             }
         }
 
+2. Next, use the `@DisallowRobots` annotation to mark methods and controllers that you would like to be excluded from search engine indexing.
+
+        @Controller
+        @DisallowRobots
+        public class FooController {
+        
+            @GetMapping("/foo/1")
+            public String foo1(Model model) {
+                model.addAttribute("message", "This is Foo1");
+                return "foo";
+            }
+            
+            @GetMapping("/foo/2")
+            public String foo2(Model model) {
+                model.addAttribute("message", "This is Foo2");
+                return "foo";
+            }
+        }
+        
+    Or
+    
+        @Controller
+        public class FooController {
+        
+            @GetMapping("/foo/1")
+            @DisallowRobots
+            public String foo1(Model model) {
+                model.addAttribute("message", "This is Foo1");
+                return "foo";
+            }
+            
+            @GetMapping("/foo/2")
+            public String foo2(Model model) {
+                model.addAttribute("message", "This is Foo2");
+                return "foo";
+            }
+        }
+
 ## Getting Roboto
 Roboto libraries are available via JCenter.
 
