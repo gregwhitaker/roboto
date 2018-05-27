@@ -48,9 +48,14 @@ public class RobotsResponse {
             for(Map.Entry<String, Set<String>> entry : disallowed.entrySet()) {
                 builder.append("User-agent: ").append(entry.getKey()).append(System.lineSeparator());
 
-                entry.getValue().forEach(path -> {
-                    builder.append("Disallow: ").append(path).append(System.lineSeparator());
-                });
+                if (entry.getValue().size() == 0) {
+                    // Allow all
+                    builder.append("Disallow:").append(System.lineSeparator());
+                } else {
+                    entry.getValue().forEach(path -> {
+                        builder.append("Disallow: ").append(path).append(System.lineSeparator());
+                    });
+                }
 
                 builder.append(System.lineSeparator());
             }
