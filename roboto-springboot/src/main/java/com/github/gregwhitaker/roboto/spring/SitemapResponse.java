@@ -25,6 +25,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -52,11 +54,26 @@ public class SitemapResponse {
 
             XmlUrlSet xmlUrlSet = new XmlUrlSet();
 
-            for (String path : allowed) {
-                xmlUrlSet.addUrl(new XmlUrl(path));
-            }
+            try {
+                URI uri = new URI(request.getRequestURL().toString());
 
-            return xmlUrlSet;
+                for (String path : allowed) {
+                    StringBuilder builder = new StringBuilder();
+                    builder.append(uri.getScheme())
+                            .append("://")
+                            .append(uri.getHost())
+                            .append(":")
+                            .append(uri.getPort())
+                            .append(path);
+
+                    xmlUrlSet.addUrl(new XmlUrl(builder.toString()));
+                }
+
+                return xmlUrlSet;
+            } catch (URISyntaxException e) {
+                LOGGER.error("Failed to create sitemap.xml", e);
+                throw new RuntimeException(e);
+            }
         });
     }
 

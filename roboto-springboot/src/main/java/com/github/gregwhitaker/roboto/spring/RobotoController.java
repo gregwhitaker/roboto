@@ -54,8 +54,12 @@ public class RobotoController {
      */
     @RequestMapping(value = { "/sitemap.xml" },
                     produces = MediaType.APPLICATION_XML_VALUE)
-    @ResponseBody
-    public SitemapResponse.XmlUrlSet sitemap(HttpServletRequest request) {
-        return SitemapResponse.create(request, mapper);
+    public ResponseEntity<SitemapResponse.XmlUrlSet> sitemap(HttpServletRequest request) {
+        try {
+            return ResponseEntity.ok(SitemapResponse.create(request, mapper));
+        } catch (Exception e) {
+            // In the event of an exception just don't return a sitemap
+            return ResponseEntity.notFound().build();
+        }
     }
 }
