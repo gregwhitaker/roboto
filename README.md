@@ -4,6 +4,11 @@
 Module for Spring Boot applications that automatically generates robots.txt and sitemap.xml files based on standard 
 controller annotations.
 
+## Getting Roboto
+Roboto libraries are available via JCenter.
+
+* [roboto-springboot](https://bintray.com/gregwhitaker/maven/roboto-springboot) - Use this library if you are integrating with Spring Boot.
+
 ## Examples
 Please see the included [example projects](roboto-examples) for demonstrations on how to configure and use Roboto.
 
